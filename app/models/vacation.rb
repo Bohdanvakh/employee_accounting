@@ -1,7 +1,5 @@
 class Vacation < ApplicationRecord
-  belongs_to :employees
-
-  validates :started_on, presence: true
-  validates :finished_on, presence: true
-  validates :employee_id, presence: true
+  validates :started_on, presence: true, date: true
+  validates :finished_on, presence: true, date: true
+  validates :employee_id, presence: true, uniqueness: true
 end
