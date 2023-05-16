@@ -7,7 +7,6 @@ class Employee < ApplicationRecord
   validates :place_of_birth, presence: true, format: { with: /\A[a-zA-Z\s]+\z/ }
   validates :home_address, presence: true, format: { with: /\A\d+\s[A-z0-9]+\s[A-z]+\z/ }
   validate :employed_on_in_past
-  validate :age_must_be_eighteen_or_above
 end
 
 def employed_on_in_past

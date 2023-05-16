@@ -8,7 +8,8 @@ class AddColumnsToEmployee < ActiveRecord::Migration[7.0]
       t.date :date_of_birth
       t.string :place_of_birth
       t.string :home_address
-      t.date :employed_on
+
+      t.timestamps
     end
   end
 end
