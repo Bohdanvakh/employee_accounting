@@ -3,7 +3,7 @@ class CreateVacations < ActiveRecord::Migration[7.0]
     create_table :vacations do |t|
       t.date :started_on
       t.date :finished_on
-      t.references :employee, foreign_key: true
+      t.references :employee
 
       t.timestamps
     end
