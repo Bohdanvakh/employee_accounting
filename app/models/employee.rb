@@ -1,4 +1,10 @@
 class Employee < ApplicationRecord
+  belongs_to :department
+
+  has_many :vacations
+  has_many :position_histories
+  has_many :positions, through: :position_histories
+
   validates :last_name, presence: true, length: { minimum: 2, maximum: 30 }
   validates :first_name, presence: true, length: { minimum: 2, maximum: 30 }
   validates :middle_name, presence: true, length: { minimum: 2, maximum: 30 }
