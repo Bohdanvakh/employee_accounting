@@ -1,10 +1,10 @@
 class EmployeesController < ApplicationController
+  before_action :find_employee only: [:show, :edit, :update, :destory]
   def index
     @employee = Employee.all
   end
 
   def show
-    @employee = Employee.find(params[:id])
   end
 
   def new
@@ -21,11 +21,9 @@ class EmployeesController < ApplicationController
   end
 
   def edit
-    @employee = Employee.find(params[:id])
   end
 
   def update
-    @employee = Employee.find(params[:id])
     if @employee.update(employee_params)
       redirect_to @employee
     else
@@ -34,11 +32,14 @@ class EmployeesController < ApplicationController
   end
 
   def destroy
-    @employee = Employee.find(params[:id])
     @employee.destroy
   end
 
   private
+  def find_employee
+    @employee = Employee.find(params[:id])
+  end
+
   def employee_params
     params.require(:employee).parmit(:first_name, :middle_name, :last_name, :passport_data, :date_of_birth, :place_of_birth, :home_address, :department_id)
   end
