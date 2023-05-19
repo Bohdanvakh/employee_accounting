@@ -1,5 +1,6 @@
 class EmployeesController < ApplicationController
-  before_action :find_employee only: [:show, :edit, :update, :destory]
+  before_action :find_employee, only: [:show, :edit, :update, :destory]
+
   def index
     @employee = Employee.all
   end
@@ -36,6 +37,7 @@ class EmployeesController < ApplicationController
   end
 
   private
+
   def find_employee
     @employee = Employee.find(params[:id])
   end
