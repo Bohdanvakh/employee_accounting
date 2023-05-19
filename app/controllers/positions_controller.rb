@@ -1,10 +1,11 @@
 class PositionsController < ApplicationController
+  before_action :find_position, only: [:show, :edit, :update, :destory]
+
   def index
     @positions = Position.all
   end
 
   def show
-    @position = Position.find(params[:id])
   end
 
   def new
@@ -21,11 +22,9 @@ class PositionsController < ApplicationController
   end
 
   def edit
-    @position = Position.find(params[:id])
   end
 
   def update
-    @position = Position.find(params[:id])
     if @position.update(position_params)
       redirect_to @position
     else
@@ -34,11 +33,15 @@ class PositionsController < ApplicationController
   end
 
   def destroy
-    @position = Position.find(position[:id])
     @position.destroy
   end
 
   private
+
+  def find_position
+    @position = Position.find(params[:id])
+  end
+
   def position_params
     params.require(:position).permit(:name, :salary, :vacation_days)
   end
