@@ -1,11 +1,11 @@
 class DepartmentsController < ApplicationController
+  before_action :find_department, only: [:show, :edit, :update, :destory]
 
   def index
     @departments = Department.all
   end
 
   def show
-    @department = Department.find(params[:id])
   end
 
   def new
@@ -22,11 +22,9 @@ class DepartmentsController < ApplicationController
   end
 
   def edit
-    @department = Department.find(params[:id])
   end
 
   def update
-    @department = Department.find(params[:id])
     if @department.update(department_params)
       redirect_to @department
     else
@@ -35,11 +33,15 @@ class DepartmentsController < ApplicationController
   end
 
   def destroy
-    @department = Department.find(params[:id])
     @department.destroy
   end
 
   private
+
+  def find_department
+    @department = Department.find(params[:id])
+  end
+
   def department_params
     params.require(:department).permit(:name, :abbreviation)
   end
