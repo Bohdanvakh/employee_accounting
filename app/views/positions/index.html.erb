@@ -8,6 +8,6 @@
 <% @positions.each do |position| %>
     ------- <%= link_to position.name, position %>
     <%= link_to "Edit", edit_position_path(position) %>
-    <%= button_to "Destroy", position_path(position), method: :delete %>
+    <%= button_to "Delete", position_path(position), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
     /
 <% end %>
