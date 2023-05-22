@@ -3,11 +3,11 @@
 
 <%= link_to "New Department", new_department_path %>
 
-<h3>Numebr on Departments: <%= @departments.count %></h3>
+<h3>Numebr of departments: <%= @departments.count %></h3>
 
 <% @departments.each do |department| %>
     ------- <%= link_to department.name, department %>
     <%= link_to "Edit", edit_department_path(department) %>
-    <%= button_to "Destroy", department_path(department), method: :delete %>
+    <%= button_to "Delete", department_path(department), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
     /
 <% end %>

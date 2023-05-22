@@ -10,3 +10,9 @@
     <%= f.submit "Update Department" %>
 
 <% end %>
+
+<% if @department.errors.any? %>
+  <% @department.errors.full_messages.each do |message|%>
+  <p><%= message %></p>
+  <%end%>
+<%end%>
