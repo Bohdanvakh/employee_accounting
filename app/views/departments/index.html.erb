@@ -1,0 +1,13 @@
+<h1>Department Index</h1>
+<h2>Here are the numbers of all the company's departments</h2>
+
+<%= link_to "New Department", new_department_path %>
+
+<h3>Numebr on Departments: <%= @departments.count %></h3>
+
+<% @departments.each do |department| %>
+    ------- <%= link_to department.name, department %>
+    <%= link_to "Edit", edit_department_path(department) %>
+    <%= button_to "Destroy", department_path(department), method: :delete %>
+    /
+<% end %>
