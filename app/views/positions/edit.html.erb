@@ -1,0 +1,11 @@
+<h1>Position Edit</h1>
+
+<%= form_with(model: @position, url: department_path(@position), method: :patch) do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :salary %>
+    <%= f.text_field :salary %>
+    <%= f.label :vacation_days %>
+    <%= f.text_field :vacation_days %>
+    <%= f.submit "Update Position" %>
+<% end %>

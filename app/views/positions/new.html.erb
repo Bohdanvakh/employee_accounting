@@ -1,0 +1,16 @@
+<h1>Position New</h1>
+
+<%= form_with(model: @position, url: positions_path) do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :salary %>
+    <%= f.text_field :salary %>
+    <%= f.label :vacation_days %>
+    <%= f.text_field :vacation_days %>
+    <%= f.submit "Create Position" %>
+<% end %>
+<% if @position.errors.any? %>
+  <% @position.errors.full_messages.each do |message|%>
+  <p><%= message %></p>
+  <%end%>
+<%end%>
