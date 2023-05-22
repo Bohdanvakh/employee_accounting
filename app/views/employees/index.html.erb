@@ -8,6 +8,6 @@
 <% @employee.each do |employee| %>
     ------- <%= link_to employee.name, employee %>
     <%= link_to "Edit", edit_employee_path(employee) %>
-    <%= button_to "Destroy", employee_path(employee), method: :delete %>
+    <%= button_to "Delete", employee_path(department), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
     /
 <% end %>
