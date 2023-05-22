@@ -1,0 +1,13 @@
+<h1>Employee Index</h1>
+<h2>Here are the numbers of all Employees</h2>
+
+<%= link_to "Add Employee", new_employee_path %>
+
+<h3>Numebr on Employees: <%= @employee.count %></h3>
+
+<% @employee.each do |employee| %>
+    ------- <%= link_to employee.name, employee %>
+    <%= link_to "Edit", edit_employee_path(employee) %>
+    <%= button_to "Destroy", employee_path(employee), method: :delete %>
+    /
+<% end %>
