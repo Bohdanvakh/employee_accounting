@@ -3,11 +3,4 @@
 
 <%= link_to "Add Employee", new_employee_path %>
 
-<h3>Numebr on Employees: <%= @employee.count %></h3>
-
-<% @employee.each do |employee| %>
-    ------- <%= link_to employee.name, employee %>
-    <%= link_to "Edit", edit_employee_path(employee) %>
-    <%= button_to "Delete", employee_path(department), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
-    /
-<% end %>
+<h3>Numebr on Employees: <%= @employees.count %></h3>

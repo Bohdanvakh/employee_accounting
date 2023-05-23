@@ -1,6 +1,6 @@
 <h1>Employee New</h1>
 
-<%= form_with(model: @employee, url: employees_path) do |f| %>
+<%= form_with(model: @employee, url: employees_path, data: { turbo: false }) do |f| %>
     <%= f.label :first_name %>
     <%= f.text_field :first_name %>
 
@@ -23,13 +23,13 @@
     <%= f.text_field :home_address %>
 
     <%= f.label :department_id %>
-    <%= f.text_field :department_id %>
+    <%= f.collection_select :department_id, Department.all, :id, :name, prompt: "Select Department" %>
 
     <%= f.submit "Create Employee" %>
 <% end %>
 
 <% if @employee.errors.any? %>
-  <% @employee.errors.full_messages.each do |message|%>
-  <p><%= message %></p>
+  <% @employee.errors.full_messages.each do |message| %>
+    <p><%= message %></p>
   <%end%>
 <%end%>

@@ -2,7 +2,7 @@ class EmployeesController < ApplicationController
   before_action :find_employee, only: [:show, :edit, :update, :destroy]
 
   def index
-    @employee = Employee.all
+    @employees = Employee.all
   end
 
   def show
@@ -13,7 +13,7 @@ class EmployeesController < ApplicationController
   end
 
   def create
-    @employee = Employee.create(employee_params)
+    @employee = Employee.new(employee_params)
     if @employee.save
       redirect_to @employee
     else
