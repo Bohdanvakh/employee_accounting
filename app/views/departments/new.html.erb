@@ -1,14 +1,6 @@
 <h1>Department New</h1>
 
-<%= form_with(model: @department, url: departments_path) do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-
-    <%= f.label :abbreviation %>
-    <%= f.text_field :abbreviation %>
-
-    <%= f.submit "Create Department" %>
-<% end %>
+<%= render 'form', department: @department %>
 
 <% if @department.errors.any? %>
   <% @department.errors.full_messages.each do |message|%>

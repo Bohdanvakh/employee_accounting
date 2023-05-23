@@ -1,15 +1,6 @@
 <h1>Department Edit</h1>
 
-<%= form_with(model: @department, url: department_path(@department), method: :patch) do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-
-    <%= f.label :abbreviation %>
-    <%= f.text_field :abbreviation %>
-
-    <%= f.submit "Update Department" %>
-
-<% end %>
+<%= render 'form', department: @department %>
 
 <% if @department.errors.any? %>
   <% @department.errors.full_messages.each do |message|%>
