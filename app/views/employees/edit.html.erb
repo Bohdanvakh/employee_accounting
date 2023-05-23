@@ -1,6 +1,6 @@
 <h1>Employee Edit</h1>
 
-<%= form_with(model: @employee, url: department_path(@employee), method: :patch) do |f| %>
+<%= form_with(model: @employee, url: employee_path(@employee), method: :patch, data: { turbo: false }) do |f| %>
     <%= f.label :first_name %>
     <%= f.text_field :first_name %>
 

@@ -5,8 +5,8 @@
 
 <h3>Numebr on Employees: <%= @employees.count %></h3>
 
-<% for @employees.each do |employee| %>
-    <%= link_to employee.name, employee %>
+<% @employees.each do |employee| %>
+    <%= link_to employee.first_name, employee %>
     <%= link_to "Edit", edit_employee_path(employee) %>
     <%= button_to "Delete", employee_path(employee), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
 <% end %>
