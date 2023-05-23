@@ -23,7 +23,7 @@
     <%= f.text_field :home_address %>
 
     <%= f.label :department_id %>
-    <%= f.text_field :department_id %>
+    <%= f.collection_select :department_id, Department.all, :id, :name, prompt: "Select Department" %>
 
     <%= f.submit "Update Employee" %>
 <% end %>
