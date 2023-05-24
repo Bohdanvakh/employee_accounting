@@ -3,7 +3,7 @@
 
 <%= link_to "New Department", new_department_path %>
 
-<h2>Numebr of departments: <%= @departments.count %></h2>
+<h2>Number of departments: <%= @departments.count %></h2>
 
 <% @departments.each do |department| %>
     <%= link_to department.name, department %>
