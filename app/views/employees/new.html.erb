@@ -2,8 +2,4 @@
 
 <%= render 'form', employee: @employee %>
 
-<% if @employee.errors.any? %>
-  <% @employee.errors.full_messages.each do |message| %>
-    <p><%= message %></p>
-  <%end%>
-<%end%>
+<%= render 'shared/errors_messages', employee: @employee %>
