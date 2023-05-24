@@ -1,0 +1,9 @@
+<%= form_with(model: position, data: { turbo: false }, url: position.persisted? ? position_path(position) : positions_path) do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :salary %>
+    <%= f.text_field :salary %>
+    <%= f.label :vacation_days %>
+    <%= f.text_field :vacation_days %>
+    <%= f.submit position.persisted? ? "Update Position" : "Create Position" %>
+<% end %>
