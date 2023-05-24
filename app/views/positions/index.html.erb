@@ -3,7 +3,7 @@
 
 <%= link_to "New Position", new_position_path %>
 
-<h3>Numebr on Positions: <%= @positions.count %></h3>
+<h3>Number on Positions: <%= @positions.count %></h3>
 
 <% @positions.each do |position| %>
     ------- <%= link_to position.name, position %>
