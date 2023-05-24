@@ -6,6 +6,8 @@ class EmployeesController < ApplicationController
   end
 
   def show
+    @position_history = PositionHistory.new
+    @position_histories = @employee.position_histories
   end
 
   def new

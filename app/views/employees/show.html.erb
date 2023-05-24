@@ -11,3 +11,28 @@
 <p>Employee Department ID: <%= @employee.department_id %></p>
 
 <%= link_to "Edit", edit_employee_path %>
+
+<h2>Employee's position history</h2>
+
+
+<% @position_histories.each do |position_history| %>
+    <tr>
+        <td><%= position_history.position.name %></td>
+        <td><%= position_history.started_on %></td>
+        <td><%= position_history.finished_on %></td>
+    </tr>
+<% end %>
+
+<%= form_with(model: @position_history, data: { turbo: false }, url: employee_position_histories_path(@employee)) do |f| %>
+
+    <%= f.collection_select :position_id, Position.all, :id, :name, prompt: "Select Position" %>
+
+    <%= f.label :started_on %>
+    <%= f.date_field :started_on %>
+
+    <%= f.label :finished_on %>
+    <%= f.date_field :finished_on %>
+
+    <%= f.submit "Add position" %>
+
+<% end %>
