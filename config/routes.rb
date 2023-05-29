@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   resources :employees
   resources :departments
   resources :employees do
-    resources :position_histories, only: [:new, :create]
+    resources :position_histories, only: [:new, :create, :edit, :update]
+  end
+  resources :employees do
+    resources :vacations, only: [:new, :create]
   end
 end

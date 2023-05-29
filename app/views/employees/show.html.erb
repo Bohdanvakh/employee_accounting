@@ -10,29 +10,59 @@
 <p>Employee Home address: <%= @employee.home_address %></p>/
 <p>Employee Department ID: <%= @employee.department_id %></p>
 
-<%= link_to "Edit", edit_employee_path %>
-
 <h2>Employee's position history</h2>
 
 
-<% @position_histories.each do |position_history| %>
+<% @employee.position_histories.each do |position_history| %>
+    <hr>
     <tr>
-        <td><%= position_history.position.name %></td>
-        <td><%= position_history.started_on %></td>
-        <td><%= position_history.finished_on %></td>
+        <td>Position: <%= position_history.position.name %></td>
+        <br>
+        <td>Started on: <%= position_history.started_on %></td>
+        <br>
+        <td>Finished on: <%= position_history.finished_on %></td>
     </tr>
+    <br>
 <% end %>
 
+<% if @position %>
+    <%= link_to "Edit", edit_employee_position_history_path(@employee, @position) %>
+<% end %>
+
+<h4>Add position</h4>
 <%= form_with(model: @position_history, data: { turbo: false }, url: employee_position_histories_path(@employee)) do |f| %>
-
     <%= f.collection_select :position_id, Position.all, :id, :name, prompt: "Select Position" %>
-
     <%= f.label :started_on %>
     <%= f.date_field :started_on %>
-
     <%= f.label :finished_on %>
     <%= f.date_field :finished_on %>
-
+    <%= f.hidden_field :employee_id, value: @employee.id %>
     <%= f.submit "Add position" %>
+<% end %>
 
+<% if flash[:position_errors] %>
+ <p><%= flash[:position_errors].join(', ') %></p>
+<% end %>
+
+<h2>Vacations</h2>
+<% @vacations.each do |vacation| %>
+    <p><%= vacation.started_on %> - <%= vacation.finished_on %></p>
+<% end %>
+
+<p>Vacation days: <%= @vacation_days %></p>
+<p>Used vacation days: <%= @used_vacation_days %></p>
+<p>Remaining vacation days: <%= @remaining_vacation_days %></p>
+
+<h4>Add vacation</h4>
+<%= form_with(model: @vacation, data: { turbo: false }, url: employee_vacations_path(@employee)) do |f| %>
+    <%= f.label :started_on %>
+    <%= f.date_field :started_on %>
+    <%= f.label :finished_on %>
+    <%= f.date_field :finished_on %>
+    <%= f.hidden_field :employee_id, value: @employee.id %>
+    <%= f.submit "Add Vacation" %>
+<% end %>
+
+<% if flash[:vacation_errors] %>
+    <p><%= flash[:vacation_errors].join(', ') %></p>
 <% end %>

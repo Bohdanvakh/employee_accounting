@@ -6,7 +6,14 @@ class EmployeesController < ApplicationController
   end
 
   def show
+    @vacation = Vacation.new
+    @vacations = @employee.vacations
+    @vacation_days = @employee.vacation_days
+    @used_vacation_days = @employee.used_vacation_days
+    @remaining_vacation_days = @employee.remaining_vacation_days
+
     @position_history = PositionHistory.new
+    @position = @employee.position_histories.last
     @position_histories = @employee.position_histories
   end
 
@@ -47,5 +54,4 @@ class EmployeesController < ApplicationController
   def employee_params
     params.require(:employee).permit(:first_name, :middle_name, :last_name, :passport_data, :date_of_birth, :place_of_birth, :home_address, :department_id)
   end
-
 end
