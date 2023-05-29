@@ -1,0 +1,18 @@
+<%= form_with(model: @position_history, data: { turbo: false }, url: employee_position_history_path) do |f| %>
+
+    <%= f.collection_select :position_id, Position.all, :id, :name, prompt: "Select Position", readonly: true %>
+
+    <%= f.label :started_on %>
+    <%= f.date_field :started_on, readonly: true %>
+
+    <%= f.label :finished_on %>
+    <%= f.date_field :finished_on %>
+
+    <%= f.submit "Change position" %>
+<% end %>
+
+<% if @position_history.errors.any? %>
+  <% @position_history.errors.full_messages.each do |message|%>
+  <p><%= message %></p>
+  <%end%>
+<%end%>
