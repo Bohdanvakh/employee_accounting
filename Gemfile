@@ -29,6 +29,8 @@ gem "jbuilder"
 
 gem 'validates_timeliness', '7.0.0.beta2'
 
+gem 'pry-rails'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
