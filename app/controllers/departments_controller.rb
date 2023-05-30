@@ -6,6 +6,7 @@ class DepartmentsController < ApplicationController
   end
 
   def show
+    @employees = @department.employees
   end
 
   def new

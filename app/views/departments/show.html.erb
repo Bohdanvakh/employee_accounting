@@ -1,0 +1,12 @@
+<h1>Department Show</h1>
+
+<p>Department ID: <%= @department.id %></p>/
+<p>Department Name: <%= @department.name %></p>/
+<p>Department Abbreviation: <%= @department.abbreviation %></p>
+
+<%= link_to "Edit", edit_department_path %>
+
+<h2>Department's employees:</h2>
+<% @employees.each do |employee| %>
+    <li><%= link_to "#{employee.first_name} #{employee.last_name}", employee_path(employee) %></li>
+<% end %>

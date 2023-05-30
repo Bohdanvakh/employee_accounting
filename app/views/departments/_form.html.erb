@@ -1,0 +1,9 @@
+<%= form_with(model: @department, data: { turbo: false }, url: @department.persisted? ? department_path(@department) : departments_path) do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.label :abbreviation %>
+    <%= f.text_field :abbreviation %>
+
+    <%= f.submit department.persisted? ? "Update Department" : "Create Department" %>
+<% end %>
