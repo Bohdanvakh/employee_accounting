@@ -12,8 +12,8 @@ class Employee < ApplicationRecord
   validates :date_of_birth, presence: true, timeliness: { before: 18.years.ago }
   validates :place_of_birth, presence: true, format: { with: /\A[a-zA-Z\s]+\z/ }
   validates :home_address, presence: true, format: { with: /\A\d+\s[A-z0-9]+\s[A-z]+\z/ }
-  validate :last_position_finished
-  validate :vacation_date_nil
+  #validate :last_position_finished
+  #validate :vacation_date_nil
 
   def vacation_days
     positions&.last&.vacation_days || 0
