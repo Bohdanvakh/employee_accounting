@@ -1,34 +1,26 @@
-<h1>Employee Show</h1>
-
-<p>Employee ID: <%= @employee.id %></p>/
-<p>Employee First name: <%= @employee.first_name %></p>/
-<p>Employee Last name: <%= @employee.last_name %></p>/
-<p>Employee Middle name: <%= @employee.middle_name %></p>/
-<p>Employee Passport data: <%= @employee.passport_data %></p>/
-<p>Employee Date of birth: <%= @employee.date_of_birth %></p>/
-<p>Employee Place of birth: <%= @employee.place_of_birth %></p>/
-<p>Employee Home address: <%= @employee.home_address %></p>/
-<p>Employee Department ID: <%= @employee.department_id %></p>
-
-<h2>Employee's position history</h2>
-
-<h1><%= @salary %></h1>
-
-<% @employee.position_histories.each do |position_history| %>
-    <hr>
-    <tr>
-        <td>Position: <%= position_history.position.name %></td>
-        <br>
-        <td>Started on: <%= position_history.started_on %></td>
-        <br>
-        <td>Finished on: <%= position_history.finished_on %></td>
-    </tr>
-    <br>
-<% end %>
-
-<% if @position %>
-    <%= link_to "Edit", edit_employee_position_history_path(@employee, @position) %>
-<% end %>
+<div class="user_info">
+    <h1><%= @employee.last_name %></h1>
+    <h1><%= @employee.first_name %></h1>
+    <h1><%= @employee.middle_name %></h1>
+</div>
+<div class="user_info">
+    <% unless @employee.position_histories.first.nil? %>
+        <h3>Position: <%= @employee.position_histories.last.position.name %></h3>
+    <% end %>
+    <h3>Salary: <%= @salary %></h3>
+    <p>Department ID: <%= @employee.department_id %></p>
+</div>
+<hr/>
+<p>ID: <%= @employee.id %></p>
+<p>Passport data: <%= @employee.passport_data %></p>
+<hr/>
+<div class="user_info">
+    <p>Date of birth: <%= @employee.date_of_birth %></p>
+    <p>Place of birth: <%= @employee.place_of_birth %></p>
+</div>
+<hr/>
+<p>Home address: <%= @employee.home_address %></p>
+<h1>----- Employee's position history</h1>
 
 <h4>Add position</h4>
 <%= form_with(model: @position_history, data: { turbo: false }, url: employee_position_histories_path(@employee)) do |f| %>
@@ -44,20 +36,29 @@
 <% if flash[:position_errors] %>
  <p><%= flash[:position_errors].join(', ') %></p>
 <% end %>
+<br>
 
-<h2>Vacations</h2>
-<% @vacations.each do |vacation| %>
-    <p><%= vacation.started_on %> - <%= vacation.finished_on %></p>
+<% if @position %>
+    <%= link_to "Edit", edit_employee_position_history_path(@employee, @position) %>
+<% end %>
+<br>
+<% @position_histories.reverse.each do |position_history| %>
+    <tr>
+        <td>Position: <%= position_history.position.name %></td>
+        <br>
+        <td>Started on: <%= position_history.started_on %></td>
+        <br>
+        <td>Finished on: <%= position_history.finished_on %></td>
+    </tr>
+    <hr>
+    <br>
 <% end %>
 
 <br>
-<p>Total vacation days: <%= @all_vacations %></p>
 <br>
 
-<p>Vacation days: <%= @vacation_days %></p>
-<p>Used vacation days: <%= @used_vacation_days %></p>
-<p>Remaining vacation days: <%= @remaining_vacation_days %></p>
-
+<h2>Vacations</h2>
+<br>
 <h4>Add vacation</h4>
 <%= form_with(model: @vacation, data: { turbo: false }, url: employee_vacations_path(@employee)) do |f| %>
     <%= f.label :started_on %>
@@ -71,3 +72,19 @@
 <% if flash[:vacation_errors] %>
     <p><%= flash[:vacation_errors].join(', ') %></p>
 <% end %>
+
+<br>
+
+<h3>Total vacation days: <%= @all_vacations %></h3>
+<br>
+<% @vacations.reverse.each do |vacation| %>
+    <p><%= vacation.started_on %> - <%= vacation.finished_on %></p>
+<% end %>
+
+<%
+=begin%>
+ <p>Vacation days: <%= @vacation_days %></p>
+<p>Used vacation days: <%= @used_vacation_days %></p>
+<p>Remaining vacation days: <%= @remaining_vacation_days %></p>
+<%
+=end%>
