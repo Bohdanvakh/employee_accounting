@@ -12,8 +12,6 @@ class Employee < ApplicationRecord
   validates :date_of_birth, presence: true, timeliness: { before: 18.years.ago }
   validates :place_of_birth, presence: true, format: { with: /\A[a-zA-Z\s]+\z/ }
   validates :home_address, presence: true, format: { with: /\A\d+\s[A-z0-9]+\s[A-z]+\z/ }
-  #validate :last_position_finished
-  #validate :vacation_date_nil
 
   def vacation_days
     positions&.last&.vacation_days || 0
@@ -43,4 +41,26 @@ class Employee < ApplicationRecord
     count
   end
 
+  def calculate_salary
+    unless self.positions.empty?
+      base_salary = self.positions.last.salary
+      years_of_service = years_of_employee
+
+      increased_salary = (base_salary * (1 + 0.012)**years_of_service).to_i
+    end
+  end
+
+  def years_of_employee
+    total_days = 0
+    position_histories.each do |position|
+      if position.finished_on.present?
+        total_days += (position.finished_on - position.started_on).to_i
+      else
+        total_days += (DateTime.now - position.started_on).to_i
+      end
+    end
+    total_days
+    total_years = total_days / 365
+    total_years
+  end
 end

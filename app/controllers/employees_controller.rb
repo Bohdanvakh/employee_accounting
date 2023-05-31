@@ -17,6 +17,7 @@ class EmployeesController < ApplicationController
     @position_histories = @employee.position_histories
 
     @all_vacations = @employee.vacations.sum { |vacation| (vacation.finished_on - vacation.started_on).to_i }
+    @salary = @employee.calculate_salary
   end
 
   def new
