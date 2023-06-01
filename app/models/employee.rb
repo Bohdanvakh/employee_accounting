@@ -41,26 +41,28 @@ class Employee < ApplicationRecord
     count
   end
 
-  def calculate_salary
-    unless self.positions.empty?
-      base_salary = self.positions.last.salary
-      years_of_service = years_of_employee
+  # SALARY_INCREASE_RATE = 0.012
 
-      increased_salary = (base_salary * (1 + 0.012)**years_of_service).to_i
-    end
-  end
+  # def calculate_salary
+  #   unless self.positions.empty?
+  #     base_salary = self.positions.last.salary
+  #     years_of_service = years_of_employee
 
-  def years_of_employee
-    total_days = 0
-    position_histories.each do |position|
-      if position.finished_on.present?
-        total_days += (position.finished_on - position.started_on).to_i
-      else
-        total_days += (DateTime.now - position.started_on).to_i
-      end
-    end
-    total_days
-    total_years = total_days / 365
-    total_years
-  end
+  #     increased_salary = (base_salary * (1 + SALARY_INCREASE_RATE)**years_of_service).to_i
+  #   end
+  # end
+
+  # def years_of_employee
+  #   total_days = 0
+  #   position_histories.each do |position|
+  #     if position.finished_on.present?
+  #       total_days += (position.finished_on - position.started_on).to_i
+  #     else
+  #       total_days += (DateTime.now - position.started_on).to_i
+  #     end
+  #   end
+  #   total_days
+  #   total_years = total_days / 365
+  #   total_years
+  # end
 end

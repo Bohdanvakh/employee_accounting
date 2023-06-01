@@ -1,11 +1,15 @@
 class EmployeesController < ApplicationController
   before_action :find_employee, only: [:show, :edit, :update, :destroy]
 
+  require 'employee_decorator'
+
   def index
     @employees = Employee.all
   end
 
   def show
+    @decorator_employee = EmployeeDecorator.new(@employee)
+
     @vacation = Vacation.new
     @vacations = @employee.vacations
     @vacation_days = @employee.vacation_days
@@ -16,8 +20,8 @@ class EmployeesController < ApplicationController
     @position = @employee.position_histories.last
     @position_histories = @employee.position_histories
 
-    @all_vacations = @employee.vacations.sum { |vacation| (vacation.finished_on - vacation.started_on).to_i }
-    @salary = @employee.calculate_salary
+    @total_vacation_days = @employee.vacations.sum { |vacation| (vacation.finished_on - vacation.started_on).to_i }
+    @salary = @decorator_employee.calculate_salary
   end
 
   def new
