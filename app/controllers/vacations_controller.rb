@@ -12,7 +12,7 @@ class VacationsController < ApplicationController
       @vacation.save
       redirect_to employee_path(@employee)
     else
-      flash[:vacation_errors] = @vacation.errors.full_messages
+      flash[:error] = @vacation.errors.full_messages
       redirect_to employee_path(@employee)
     end
   end
