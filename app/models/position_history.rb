@@ -5,6 +5,7 @@ class PositionHistory < ApplicationRecord
   validates :started_on, presence: true
   validate :last_position_finished, on: :create
   validate :validate_position_history_overlap
+  validate :manager_exists
 
   def last_position_finished
     employee = Employee.find_by_id(employee_id)
@@ -23,6 +24,16 @@ class PositionHistory < ApplicationRecord
         if position_interval.cover?(started_on) || position_interval.cover?(finished_on)
           errors.add(:base, "Position cannot overlap with other positions")
         end
+      end
+    end
+  end
+
+  def manager_exists
+    department = employee.department
+
+    department.employees.each do |employee|
+      if employee.position_histories.last.present? && employee.position_histories.last.position.name == "manager"
+        errors.add(:base, "The position is already taken")
       end
     end
   end
