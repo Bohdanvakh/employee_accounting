@@ -69,8 +69,8 @@
     <%= f.submit "Add Vacation" %>
 <% end %>
 
-<% if flash[:vacation_errors] %>
-    <p><%= flash[:vacation_errors].join(', ') %></p>
+<% if flash[:error] %>
+    <p><%= flash[:error].join(', ') %></p>
 <% end %>
 
 <br>

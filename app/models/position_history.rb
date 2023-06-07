@@ -5,7 +5,7 @@ class PositionHistory < ApplicationRecord
   validates :started_on, presence: true
   validate :last_position_finished, on: :create
   validate :manager_exists, on: :create
-  validate :validate_position_history_overlap
+  validate :validate_position_history_overlap, on: :create
 
   def last_position_finished
     employee = Employee.find_by_id(employee_id)
