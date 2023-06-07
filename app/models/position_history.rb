@@ -4,8 +4,8 @@ class PositionHistory < ApplicationRecord
 
   validates :started_on, presence: true
   validate :last_position_finished, on: :create
+  validate :manager_exists, on: :create
   validate :validate_position_history_overlap
-  validate :manager_exists
 
   def last_position_finished
     employee = Employee.find_by_id(employee_id)
@@ -32,7 +32,7 @@ class PositionHistory < ApplicationRecord
     department = employee.department
 
     department.employees.each do |employee|
-      if employee.position_histories.last.present? && employee.position_histories.last.position.name == "manager"
+      if employee.position_histories.present? && employee.position_histories.last.finished_on == nil && employee.position_histories.last.position.name == "manager"
         errors.add(:base, "The position is already taken")
       end
     end
