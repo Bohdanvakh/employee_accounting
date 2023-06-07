@@ -3,6 +3,14 @@ class DepartmentsController < ApplicationController
 
   def index
     @departments = Department.all
+
+    @department_manager = @departments.each_with_object({}) do |department, result|
+      result[department] = department.employees.joins(position_histories: :position)
+                                               .where(positions: { name: 'manager' })
+                                               .where(position_histories: { finished_on: nil })
+                                               .order('position_histories.started_on DESC')
+                                               .first
+    end
   end
 
   def show

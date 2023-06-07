@@ -6,6 +6,13 @@
 <h2>Number of departments: <%= @departments.count %></h2>
 
 <% @departments.each do |department| %>
+    <% manager = @department_manager[department] %>
+    <% if manager %>
+        <p>Department manager ➨ <%= link_to "#{manager.first_name} #{manager.last_name}", manager %></p>
+    <% else %>
+        <p>The department does not have a manager</p>
+    <% end %>
+
     <%= link_to department.name, department %>
     <p>Department's employees number: <%= department.employees.count %></p>
     <%= link_to "Edit", edit_department_path(department) %>
