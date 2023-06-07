@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: "departments#index"
+
   resources :positions
   resources :employees
   resources :departments
