@@ -4,7 +4,7 @@ class EmployeeDecorator < Draper::Decorator
   SALARY_INCREASE_RATE = 0.012
 
   def calculate_salary
-    return 0 if position.empty?
+    return 0 if positions.empty?
     base_salary = positions.last.salary
     years_of_service = years_of_employee
 
