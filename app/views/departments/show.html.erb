@@ -8,6 +8,8 @@
 <hr />
 <br>
 <%= link_to "Add Employees", new_employee_path %>
+<br>
+<%= link_to "Show employees vacations", "/departments/#{@department.id}/employees_list" %>
 
 <h2>Department's employees:</h2>
 <% @employees.each do |employee| %>
