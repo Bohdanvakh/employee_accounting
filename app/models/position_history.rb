@@ -8,31 +8,27 @@ class PositionHistory < ApplicationRecord
   validate :validate_position_history_overlap, on: :create
 
   def last_position_finished
-    employee = Employee.find_by_id(employee_id)
-    position = employee.position_histories.last
-    if position.present? && position.finished_on.nil?
+    if PositionHistory.where(employee_id: employee_id).order(id: :desc).take(1).pluck(:finished_on).first.nil?
       errors.add(:base, "The last position is active")
     end
   end
 
   def validate_position_history_overlap
-    employee = Employee.find_by_id(employee_id)
-
-    if employee.position_histories.present? && !employee.position_histories.last.finished_on.nil?
-      employee.position_histories.each do |position|
-        position_interval = position.started_on..position.finished_on
-        if position_interval.cover?(started_on) || position_interval.cover?(finished_on)
-          errors.add(:base, "Position cannot overlap with other positions")
-        end
-      end
+    vacation_interval = started_on..finished_on
+    if employee.position_histories.where.not(finished_on: nil)
+                                  .where(started_on: vacation_interval)
+                                  .or(employee.position_histories.where.not(finished_on: nil)
+                                  .where(finished_on: vacation_interval)).exists?
+      errors.add(:base, "Position cannot overlap with other positions")
     end
   end
 
+  MANAGER = "manager"
+
   def manager_exists
     department = employee.department
-
     department.employees.each do |employee|
-      if employee.position_histories.present? && employee.position_histories.last.finished_on == nil && employee.position_histories.last.position.name == "manager"
+      if employee.position_histories.present? && employee.position_histories.last.finished_on == nil && employee.position_histories.last.position.name == MANAGER
         errors.add(:base, "The position is already taken")
       end
     end
