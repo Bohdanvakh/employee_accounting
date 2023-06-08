@@ -25,4 +25,10 @@ class EmployeeDecorator < Draper::Decorator
   def total_vacation_days
     vacations.sum { |vacation| (vacation.finished_on - vacation.started_on).to_i }
   end
+
+  def last_position
+    unless position_histories.first.nil?
+      position_histories.last.position.name
+    end
+  end
 end

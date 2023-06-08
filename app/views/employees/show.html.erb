@@ -4,9 +4,7 @@
     <h1><%= @employee.middle_name %></h1>
 </div>
 <div class="user_info">
-    <% unless @employee.position_histories.first.nil? %>
-        <h3>Position: <%= @employee.position_histories.last.position.name %></h3>
-    <% end %>
+    <h3>Position: <%= @last_position %></h3>
     <h3>Salary: <%= @salary %></h3>
     <p>Department ID: <%= @employee.department_id %></p>
 </div>
