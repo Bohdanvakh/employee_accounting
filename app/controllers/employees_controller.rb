@@ -22,6 +22,7 @@ class EmployeesController < ApplicationController
     @position_history = PositionHistory.new
     @position = @employee.position_histories.last
     @position_histories = @employee.position_histories
+    @last_position = @employee.last_position
   end
 
   def new
