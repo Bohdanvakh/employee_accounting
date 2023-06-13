@@ -33,6 +33,8 @@ gem 'draper', '~> 4.0', '>= 4.0.2'
 
 gem 'pry-rails'
 
+
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
@@ -75,4 +77,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+
+  gem 'rspec-rails', '~> 3.4', '>= 3.4.2'
+  gem 'shoulda-matchers', '~> 5.3'
+  gem 'factory_bot_rails', '~> 6.2'
 end
