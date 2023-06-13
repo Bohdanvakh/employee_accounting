@@ -23,12 +23,10 @@ class PositionHistory < ApplicationRecord
     end
   end
 
-  MANAGER = "manager"
-
   def manager_exists
     department = employee.department
     department.employees.each do |employee|
-      if employee.position_histories.present? && employee.position_histories.last.finished_on == nil && employee.position_histories.last.position.name == MANAGER
+      if employee.position_histories.present? && employee.position_histories.last.finished_on == nil && employee.position_histories.last.position.name == Position::MANAGER
         errors.add(:base, "The position is already taken")
       end
     end

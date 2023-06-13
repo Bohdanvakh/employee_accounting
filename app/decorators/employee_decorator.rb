@@ -27,7 +27,7 @@ class EmployeeDecorator < Draper::Decorator
   end
 
   def last_position
-    unless position_histories.first.nil?
+    if position_histories.first
       position_histories.last.position.name
     end
   end

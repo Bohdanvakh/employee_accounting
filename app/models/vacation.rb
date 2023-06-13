@@ -1,6 +1,8 @@
 class Vacation < ApplicationRecord
   belongs_to :employee
 
+  MAX_SIMULTANEOUS_VACATIONS = 5
+
   validates :started_on, presence: true
   validates :finished_on, presence: true, comparison: { greater_than: :started_on }
   validates :employee_id, presence: true
@@ -45,6 +47,6 @@ class Vacation < ApplicationRecord
                                     .where(employees: { department_id: employee.department.id })
                                     .where(vacations: { finished_on: vacation_interval }))
                           .count
-    errors.add(:base, "You cannot take a vacation on this dates because 5 employees have already taken it.") if overlapping_vacations >= 5
+    errors.add(:base, "You cannot take a vacation on this dates because 5 employees have already taken it.") if overlapping_vacations >= MAX_SIMULTANEOUS_VACATIONS
   end
 end

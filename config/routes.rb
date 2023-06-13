@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :employees
   resources :departments
 
-  get "departments/:id/employees_list", to: "departments#employees_list"
+  get "departments/:id/employees", to: "departments#employees"
 
   resources :employees do
     resources :position_histories, only: [:new, :create, :edit, :update]

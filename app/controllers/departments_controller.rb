@@ -1,16 +1,8 @@
 class DepartmentsController < ApplicationController
-  before_action :find_department, only: [:show, :edit, :update, :destroy, :employees_list]
+  before_action :find_department, only: [:show, :edit, :update, :destroy, :employees]
 
   def index
     @departments = Department.all
-
-    @department_manager = @departments.each_with_object({}) do |department, result|
-      result[department] = department.employees.joins(position_histories: :position)
-                                               .where(positions: { name: 'manager' })
-                                               .where(position_histories: { finished_on: nil })
-                                               .order('position_histories.started_on DESC')
-                                               .first
-    end
   end
 
   def show
@@ -45,7 +37,7 @@ class DepartmentsController < ApplicationController
     @department.destroy
   end
 
-  def employees_list
+  def employees
   end
 
   private
