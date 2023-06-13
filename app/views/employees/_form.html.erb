@@ -1,0 +1,28 @@
+<%= form_with(model: employee, url: employee.persisted? ? employee_path(employee) : employees_path, data: { turbo: false }) do |f| %>
+
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+
+    <%= f.label :middle_name %>
+    <%= f.text_field :middle_name %>
+
+    <%= f.label :passport_data %>
+    <%= f.text_field :passport_data %>
+
+    <%= f.label :date_of_birth %>
+    <%= f.date_field :date_of_birth %>
+
+    <%= f.label :place_of_birth %>
+    <%= f.text_field :place_of_birth %>
+
+    <%= f.label :home_address %>
+    <%= f.text_field :home_address %>
+
+    <%= f.label :department_id %>
+    <%= f.collection_select :department_id, Department.all, :id, :name, prompt: "Select Department" %>
+
+    <%= f.submit employee.persisted? ? "Update Employee" : "Create Employee" %>
+<% end %>

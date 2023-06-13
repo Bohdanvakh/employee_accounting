@@ -1,4 +1,4 @@
-<h1>Department Index</h1>
+<h1>Departments</h1>
 <h2>Here are the numbers of all the company's departments</h2>
 
 <%= link_to "New Department", new_department_path %>
@@ -6,6 +6,14 @@
 <h2>Number of departments: <%= @departments.count %></h2>
 
 <% @departments.each do |department| %>
+    <% department_decorator = department.decorate %>
+    <% if department_decorator.current_manager %>
+        <% manager = department_decorator.current_manager %>
+        <p>Department Manager: <%= link_to "#{manager.first_name} #{manager.last_name}", manager %></p>
+    <% else %>
+        <p>No Manager Assigned</p>
+    <% end %>
+
     <%= link_to department.name, department %>
     <p>Department's employees number: <%= department.employees.count %></p>
     <%= link_to "Edit", edit_department_path(department) %>

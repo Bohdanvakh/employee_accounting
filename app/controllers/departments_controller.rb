@@ -1,5 +1,5 @@
 class DepartmentsController < ApplicationController
-  before_action :find_department, only: [:show, :edit, :update, :destroy]
+  before_action :find_department, only: [:show, :edit, :update, :destroy, :employees]
 
   def index
     @departments = Department.all
@@ -35,6 +35,9 @@ class DepartmentsController < ApplicationController
 
   def destroy
     @department.destroy
+  end
+
+  def employees
   end
 
   private

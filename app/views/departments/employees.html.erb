@@ -1,0 +1,14 @@
+<h1><%= link_to "#{@department.name}", @department %> department employees vacations list</h1>
+
+<% @department.employees.each do |employee| %>
+
+    <% employee_decorated = employee.decorate %>
+
+    <h3><%= link_to "#{employee.first_name} #{employee.last_name}", employee %>:</h3>
+    <ul>
+        <% employee.vacations.each do |vacation| %>
+            <li><%= vacation.started_on %> - <%= vacation.finished_on %></li>
+        <% end %>
+        <h4>Total vacation days: <%= employee_decorated.total_vacation_days %></h4>
+    </ul>
+<% end %>
