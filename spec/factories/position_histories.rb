@@ -3,7 +3,7 @@ FactoryBot.define do
     started_on { Faker::Date.between(from: 1.year.ago, to: Date.today) }
     finished_on { Faker::Date.between(from: started_on, to: Date.today) }
 
-    employee
-    position
+    association :employee
+    association :position
   end
 end
