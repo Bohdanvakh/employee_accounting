@@ -31,9 +31,12 @@ RSpec.describe PositionHistory, type: :model do
     end
 
     context "validate_position_history_overlap method tests" do
-      it "should show error that Position cannot overlap with other positions" do
+      before do
         FactoryBot.create(:position_history, employee: employee, started_on: Date.new(2023, 10, 10), finished_on: Date.new(2023, 12, 10))
         FactoryBot.create(:position_history, employee: employee, started_on: Date.new(2024, 10, 11), finished_on: Date.new(2024, 12, 11))
+      end
+
+      it "should show error that Position cannot overlap with other positions" do
         position_history = FactoryBot.build(:position_history, employee: employee, started_on: Date.new(2023, 12, 9), finished_on: Date.new(2024, 10, 12))
 
         expect(position_history).to be_invalid
@@ -41,8 +44,6 @@ RSpec.describe PositionHistory, type: :model do
       end
 
       it "should show error that Position cannot overlap with other positions" do
-        FactoryBot.create(:position_history, employee: employee, started_on: Date.new(2023, 10, 10), finished_on: Date.new(2023, 12, 10))
-        FactoryBot.create(:position_history, employee: employee, started_on: Date.new(2024, 10, 11), finished_on: Date.new(2024, 12, 11))
         position_history = FactoryBot.build(:position_history, employee: employee, started_on: Date.new(2023, 12, 11), finished_on: Date.new(2024, 10, 10))
 
         expect(position_history).to be_valid
