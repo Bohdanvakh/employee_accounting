@@ -12,20 +12,41 @@ RSpec.describe PositionHistory, type: :model do
     # it { should validate_presence_of(:started_on).with_message("can't be blank") }
   end
 
-  describe "methods" do
-    it 'should show error that the last position is avtive' do
-      FactoryBot.create(:position_history, employee: employee, finished_on: nil)
+  describe "last_position_finished method texts" do
+    context "validate_position_history_overlap" do
+      it 'should show error that the last position is avtive' do
+        FactoryBot.create(:position_history, employee: employee, finished_on: nil)
 
-      position_history = FactoryBot.build(:position_history, employee: employee)
-      expect(position_history).to be_invalid
-      expect(position_history.errors[:base]).to include("The last position is active")
+        position_history = FactoryBot.build(:position_history, employee: employee)
+        expect(position_history).to be_invalid
+        expect(position_history.errors[:base]).to include("The last position is active")
+      end
+
+      it 'should create new position when the last position is finished' do
+        FactoryBot.create(:position_history, employee: employee, finished_on: Date.today)
+
+        position_history = FactoryBot.build(:position_history, employee: employee)
+        expect(position_history).to be_valid
+      end
     end
 
-    it 'should create new position when the last position is finished' do
-      FactoryBot.create(:position_history, employee: employee, finished_on: Date.today)
+    context "validate_position_history_overlap method tests" do
+      it "should show error that Position cannot overlap with other positions" do
+        FactoryBot.create(:position_history, employee: employee, started_on: Date.new(2023, 10, 10), finished_on: Date.new(2023, 12, 10))
+        FactoryBot.create(:position_history, employee: employee, started_on: Date.new(2024, 10, 11), finished_on: Date.new(2024, 12, 11))
+        position_history = FactoryBot.build(:position_history, employee: employee, started_on: Date.new(2023, 12, 9), finished_on: Date.new(2024, 10, 12))
 
-      position_history = FactoryBot.build(:position_history, employee: employee)
-      expect(position_history).to be_valid
+        expect(position_history).to be_invalid
+        expect(position_history.errors[:base]).to include("Position cannot overlap with other positions")
+      end
+
+      it "should show error that Position cannot overlap with other positions" do
+        FactoryBot.create(:position_history, employee: employee, started_on: Date.new(2023, 10, 10), finished_on: Date.new(2023, 12, 10))
+        FactoryBot.create(:position_history, employee: employee, started_on: Date.new(2024, 10, 11), finished_on: Date.new(2024, 12, 11))
+        position_history = FactoryBot.build(:position_history, employee: employee, started_on: Date.new(2023, 12, 11), finished_on: Date.new(2024, 10, 10))
+
+        expect(position_history).to be_valid
+      end
     end
 
     context "lorem ipsum" do
