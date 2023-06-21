@@ -9,7 +9,9 @@ RSpec.describe PositionHistory, type: :model do
   # let(:position_history) { FactoryBot.create(:position_history, employee: employee, position: position) }
 
   describe "validations" do
-    # it { should validate_presence_of(:started_on).with_message("can't be blank") }
+    subject { FactoryBot.create(:position_history) }
+
+    it { should validate_presence_of(:started_on).with_message("can't be blank") }
   end
 
   describe "methods" do
@@ -47,33 +49,13 @@ RSpec.describe PositionHistory, type: :model do
         expect(position_history).to be_valid
       end
     end
-
-    context "lorem ipsum" do
-      # let(:position_history1) { FactoryBot.create(:position_history, employee: employee2, position: manager_position, started_on: "10.10.2020", finished_on: nil) }
-      # let(:position_history2) { PositionHistory.new(employee: employee, position: manager_position, started_on: "10.10.2023", finished_on: nil) }
-
-      before do
-        position_history1 = FactoryBot.create(:position_history, employee: employee, position: manager_position, started_on: "10.10.2020", finished_on: nil)
-      end
-
-      it "should show error message that the position is already taken" do
-        position_history2 = FactoryBot.build(:position_history, employee: employee2, position: manager_position, started_on: "10.10.2023", finished_on: nil)
-
-        expect(position_history2.valid?).to be_falsy
-        expect(position_history2.errors[:base]).to include("The position is already taken")
-      end
-    end
-
-    # it "should create a new position MANAGER" do
-    #   position_history = FactoryBot.build(:position_history, employee: employee, position: FactoryBot.create(:position, name: Position::MANAGER))
-
-    #   expect(position_history).to be_valid
-    # end
   end
 
-  # describe "associations" do
-  #   it { should belong_to(:employee) }
-  #   it { should belong_to(:position) }
-  # end
+  describe "associations" do
+    subject { FactoryBot.create(:position_history) }
+
+    it { should belong_to(:employee) }
+    it { should belong_to(:position) }
+  end
 end
 
