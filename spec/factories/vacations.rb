@@ -1,8 +1,12 @@
 FactoryBot.define do
-  factory :vacation do
-    started_on { Faker::Date.between(from: Date.today, to: Date.today + 1.year) }
-    finished_on { started_on employee.position_histories.last.vacation_days.days }
+  factory :vacation, class: Vacation do
+    started_on { DateTime.now + 1.day }
+    finished_on { DateTime.now + 3.days }
 
-    employee
+    employee {
+      employee = FactoryBot.create(:employee)
+      FactoryBot.create(:position_history, employee: employee, finished_on: nil)
+      employee
+    }
   end
 end

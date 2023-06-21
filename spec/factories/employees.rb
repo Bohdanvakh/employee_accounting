@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :employee do
+  factory :employee, class: Employee do
     last_name { Faker::Name.last_name }
     first_name { Faker::Name.first_name }
     middle_name { Faker::Name.middle_name }
@@ -10,8 +10,5 @@ FactoryBot.define do
 
     department
 
-    after(:build) do |employee|
-      employee.validate
-    end
   end
 end
