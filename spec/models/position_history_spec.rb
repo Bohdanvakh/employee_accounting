@@ -12,22 +12,20 @@ RSpec.describe PositionHistory, type: :model do
     # it { should validate_presence_of(:started_on).with_message("can't be blank") }
   end
 
-  describe "last_position_finished method texts" do
-    context "validate_position_history_overlap" do
-      it 'should show error that the last position is avtive' do
-        FactoryBot.create(:position_history, employee: employee, finished_on: nil)
+  describe "methods" do
+    it 'should show error that the last position is avtive' do
+      FactoryBot.create(:position_history, employee: employee, started_on: 1.year.ago, finished_on: nil)
+      position_history = FactoryBot.build(:position_history, employee: employee, started_on: 3.month.ago)
 
-        position_history = FactoryBot.build(:position_history, employee: employee)
-        expect(position_history).to be_invalid
-        expect(position_history.errors[:base]).to include("The last position is active")
-      end
+      expect(position_history).to be_invalid
+      expect(position_history.errors[:base]).to include("The last position is active")
+    end
 
-      it 'should create new position when the last position is finished' do
-        FactoryBot.create(:position_history, employee: employee, finished_on: Date.today)
+    it 'should create new position when the last position is finished' do
+      FactoryBot.create(:position_history, employee: employee, finished_on: Date.today)
 
-        position_history = FactoryBot.build(:position_history, employee: employee)
-        expect(position_history).to be_valid
-      end
+      position_history = FactoryBot.build(:position_history, employee: employee)
+      expect(position_history).to be_valid
     end
 
     context "validate_position_history_overlap method tests" do
