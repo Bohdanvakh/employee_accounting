@@ -3,9 +3,9 @@ class PositionHistory < ApplicationRecord
   belongs_to :position
 
   validates :started_on, presence: true
-  validate :last_position_finished, on: :create
-  validate :manager_exists, on: :create
-  validate :validate_position_history_overlap, on: :create
+  validate :last_position_finished, on: create
+  validate :manager_exists, on: create
+  validate :validate_position_history_overlap, on: create
 
   def last_position_finished
     employee_position_histories = PositionHistory.where(employee_id: employee_id)
