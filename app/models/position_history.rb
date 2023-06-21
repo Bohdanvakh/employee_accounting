@@ -8,7 +8,10 @@ class PositionHistory < ApplicationRecord
   validate :validate_position_history_overlap, on: :create
 
   def last_position_finished
-    if PositionHistory.where(employee_id: employee_id).order(id: :desc).take(1).pluck(:finished_on).first.nil?
+    employee_position_histories = PositionHistory.where(employee_id: employee_id)
+    return if employee_position_histories.blank?
+
+    if employee_position_histories.order(id: :desc).take(1).pluck(:finished_on).first.nil?
       errors.add(:base, "The last position is active")
     end
   end
@@ -26,7 +29,9 @@ class PositionHistory < ApplicationRecord
   def manager_exists
     department = employee.department
     department.employees.each do |employee|
-      if employee.position_histories.present? && employee.position_histories.last.finished_on == nil && employee.position_histories.last.position.name == Position::MANAGER
+      return if employee.position_histories.blank?
+      # if employee.position_histories.present? && employee.position_histories.last.finished_on == nil && employee.position_histories.last.position.name == Position::MANAGER
+      if employee.position_histories.last.finished_on == nil && employee.position_histories.last.position.name == Position::MANAGER
         errors.add(:base, "The position is already taken")
       end
     end
