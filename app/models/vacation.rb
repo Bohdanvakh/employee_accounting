@@ -6,11 +6,11 @@ class Vacation < ApplicationRecord
   validates :started_on, presence: true
   validates :finished_on, presence: true, comparison: { greater_than: :started_on }
   validates :employee_id, presence: true
-  validate :remaining_vacation_days, on: create
-  validate :not_past_date, on: create
-  validate :vacation_overlap, on: create
-  validate :position_active, on: create
-  validate :can_take_vacation, on: create
+  validate :remaining_vacation_days, on: :create
+  validate :not_past_date, on: :create
+  validate :vacation_overlap, on: :create
+  validate :position_active, on: :create
+  validate :can_take_vacation, on: :create
 
   def remaining_vacation_days
     remaining_days = employee.vacation_days - employee.used_vacation_days
