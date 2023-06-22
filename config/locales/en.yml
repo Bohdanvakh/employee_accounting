@@ -31,3 +31,10 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        employee:
+          attributes:
+            date_of_birth:
+              before: "must be before 18 years ago"
