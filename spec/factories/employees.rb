@@ -8,7 +8,6 @@ FactoryBot.define do
     place_of_birth { Faker::Address.city }
     home_address { Faker::Address.street_address }
 
-    department
-
+    association :department
   end
 end

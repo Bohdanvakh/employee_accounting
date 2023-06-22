@@ -27,6 +27,7 @@ class PositionHistory < ApplicationRecord
   end
 
   def manager_exists
+    # binding.pry
     department = employee.department
     department.employees.each do |employee|
       return if employee.position_histories.blank?
