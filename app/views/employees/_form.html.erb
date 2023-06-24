@@ -1,28 +1,30 @@
 <%= form_with(model: employee, url: employee.persisted? ? employee_path(employee) : employees_path, data: { turbo: false }) do |f| %>
 
-    <%= f.label :first_name %>
+    <p><%= t('views.employees.form.first_name') %></p>
     <%= f.text_field :first_name %>
 
-    <%= f.label :last_name %>
+    <p><%= t('views.employees.form.last_name') %></p>
     <%= f.text_field :last_name %>
 
-    <%= f.label :middle_name %>
+    <p><%= t('views.employees.form.middle_name') %></p>
     <%= f.text_field :middle_name %>
 
-    <%= f.label :passport_data %>
+    <p><%= t('views.employees.form.passport_data') %></p>
     <%= f.text_field :passport_data %>
 
-    <%= f.label :date_of_birth %>
+    <p><%= t('views.employees.form.date_of_birth') %></p>
     <%= f.date_field :date_of_birth %>
 
-    <%= f.label :place_of_birth %>
+    <p><%= t('views.employees.form.place_of_birth') %></p>
     <%= f.text_field :place_of_birth %>
 
-    <%= f.label :home_address %>
+    <p><%= t('views.employees.form.home_address') %></p>
     <%= f.text_field :home_address %>
 
-    <%= f.label :department_id %>
-    <%= f.collection_select :department_id, Department.all, :id, :name, prompt: "Select Department" %>
+    <% if employee.new_record? %>
+        <p><%= t('views.employees.form.department_id') %></p>
+        <%= f.collection_select :department_id, Department.all, :id, :name, prompt: t('views.employees.form.select_department') %>
+    <% end %>
 
-    <%= f.submit employee.persisted? ? "Update Employee" : "Create Employee" %>
+    <%= f.submit employee.persisted? ? t('views.employees.form.update_employee') : t('views.employees.form.create_employee') %>
 <% end %>
