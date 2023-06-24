@@ -1,8 +1,8 @@
-<h1>Position Show</h1>
+<h1><%= t('views.position.show.title') %></h1>
 
-<p>Position ID: <%= @position.id %></p>/
-<p>Position Name: <%= @position.name %></p>/
-<p>Position Salary: <%= @position.salary %></p>
-<p>Position Vacation Days: <%= @position.vacation_days %></p>
+<p><%= t('views.position.show.id') %>: <%= @position.id %></p>/
+<p><%= t('views.position.show.name') %>: <%= @position.name %></p>/
+<p><%= t('views.position.show.salary') %>: <%= @position.salary %></p>
+<p><%= t('views.position.show.vacation_days') %>: <%= @position.vacation_days %></p>
 
-<%= link_to "Edit", edit_position_path %>
+<%= link_to t('views.position.show.edit'), edit_position_path %>

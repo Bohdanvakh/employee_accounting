@@ -1,9 +1,12 @@
-<%= form_with(model: position, data: { turbo: false }, url: position.persisted? ? position_path(position) : positions_path) do |f| %>
-    <%= f.label :name %>
+<%= form_with(model: @position, data: { turbo: false }, url: @position.persisted? ? position_path(@position) : positions_path) do |f| %>
+    <p><%= t('views.position.form.name') %></p>
     <%= f.text_field :name %>
-    <%= f.label :salary %>
+
+    <p><%= t('views.position.form.salary') %></p>
     <%= f.text_field :salary %>
-    <%= f.label :vacation_days %>
+
+    <p><%= t('views.position.form.vacation_days') %></p>
     <%= f.text_field :vacation_days %>
-    <%= f.submit position.persisted? ? "Update Position" : "Create Position" %>
+
+    <%= f.submit @position.persisted? ? t('views.position.form.update') : t('views.position.form.create') %>
 <% end %>
