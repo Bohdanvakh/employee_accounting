@@ -1,17 +1,17 @@
-<h1>Department Information</h1>
+<h1><%= t('views.department.show.title') %></h1>
 
-<p>Department ID: <%= @department.id %></p>
-<p>Department Name: <%= @department.name %></p>
-<p>Department Abbreviation: <%= @department.abbreviation %></p>
+<p><%= t('views.department.show.department_id') %>: <%= @department.id %></p>
+<p><%= t('views.department.show.department_name') %>: <%= @department.name %></p>
+<p><%= t('views.department.show.department_abbreviation') %>: <%= @department.abbreviation %></p>
 
-<%= link_to "Edit", edit_department_path %>
+<%= link_to t('views.department.show.edit'), edit_department_path %>
 <hr />
 <br>
-<%= link_to "Add Employees", new_employee_path %>
+<%= link_to t('views.department.show.add_employees'), new_employee_path %>
 <br>
-<%= link_to "Show employees vacations", "/departments/#{@department.id}/employees" %>
+<%= link_to t('views.department.show.employee_vacations'), "/departments/#{@department.id}/employees" %>
 
-<h2>Department's employees:</h2>
+<h2><%= t('views.department.show.department_employees') %></h2>
 <% @employees.each do |employee| %>
     <div class="user_info">
         <li><%= link_to "#{employee.first_name} #{employee.last_name}", employee_path(employee) %></li>
