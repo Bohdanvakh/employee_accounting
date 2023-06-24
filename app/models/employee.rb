@@ -5,13 +5,33 @@ class Employee < ApplicationRecord
   has_many :position_histories
   has_many :positions, through: :position_histories
 
-  validates :last_name, presence: true, length: { minimum: 2, maximum: 30 }
-  validates :first_name, presence: true, length: { minimum: 2, maximum: 30 }
-  validates :middle_name, presence: true, length: { minimum: 2, maximum: 30 }
-  validates :passport_data, presence: true, length: { is: 9 }
-  validates :date_of_birth, presence: true, timeliness: { before: 18.years.ago }
-  validates :place_of_birth, presence: true, format: { with: /\A[a-zA-Z\s]+\z/ }
-  validates :home_address, presence: true, format: { with: /\A\d+\s[A-z0-9]+\s[A-z]+\z/ }
+  validates :last_name, presence: { message: I18n.t('activerecord.errors.models.employee.attributes.last_name.blank') },
+                          length: { minimum: 2, maximum: 30,
+                            too_short: I18n.t('activerecord.errors.models.employee.attributes.last_name.too_short', count: 2),
+                            too_long: I18n.t('activerecord.errors.models.employee.attributes.last_name.too_long', count: 30) }
+
+  validates :first_name, presence: { message: I18n.t('activerecord.errors.models.employee.attributes.first_name.blank') },
+                          length: { minimum: 2, maximum: 30,
+                            too_short: I18n.t('activerecord.errors.models.employee.attributes.first_name.too_short', count: 2),
+                            too_long: I18n.t('activerecord.errors.models.employee.attributes.first_name.too_long', count: 30) }
+
+  validates :middle_name, presence: { message: I18n.t('activerecord.errors.models.employee.attributes.middle_name.blank') },
+                          length: { minimum: 2, maximum: 30,
+                            too_short: I18n.t('activerecord.errors.models.employee.attributes.middle_name.too_short', count: 2),
+                            too_short: I18n.t('activerecord.errors.models.employee.attributes.middle_name.too_long', count: 30) }
+
+  validates :passport_data, presence: { message: I18n.t('activerecord.errors.models.employee.attributes.passport_data.blank') },
+                          length: { is: 9, message: I18n.t('activerecord.errors.models.employee.attributes.passport_data.is', count: 9) }
+
+  validates :date_of_birth, presence: { message: I18n.t('activerecord.errors.models.employee.attributes.date_of_birth.blank') },
+                          timeliness: { before: 18.years.ago, message: I18n.t('activerecord.errors.models.employee.attributes.date_of_birth.before',
+                          restriction: 18.years.ago) }
+
+  validates :place_of_birth, presence: { message: I18n.t('activerecord.errors.models.employee.attributes.place_of_birth.blank') },
+                          format: { with: /\A[a-zA-Z\s]+\z/, message: I18n.t('activerecord.errors.models.employee.attributes.place_of_birth.invalid') }
+
+  validates :home_address, presence: { message: I18n.t('activerecord.errors.models.employee.attributes.home_address.blank') },
+                          format: { with: /\A\d+\s[A-z0-9]+\s[A-z]+\z/, message: I18n.t('activerecord.errors.models.employee.attributes.home_address.invalid') }
 
   def vacation_days
     positions&.last&.vacation_days || 0

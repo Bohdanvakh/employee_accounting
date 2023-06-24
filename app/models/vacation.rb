@@ -15,26 +15,26 @@ class Vacation < ApplicationRecord
   def remaining_vacation_days
     remaining_days = employee.vacation_days - employee.used_vacation_days
     return if remaining_days > 0
-    errors.add(:base, "Dont have enough days")
+    errors.add(:base, I18n.t('activerecord.errors.models.vacation.messages.dont_have_enough_days'))
   end
 
   def not_past_date
     return unless started_on && finished_on
     return if started_on > DateTime.now
-    errors.add(:base, "You cannot take vacation in a past date")
+    errors.add(:base, I18n.t('activerecord.errors.models.vacation.messages.past_date'))
   end
 
   def vacation_overlap
     vacation_interval = started_on..finished_on
     if employee.vacations.where(started_on: vacation_interval).or(employee.vacations.where(finished_on: vacation_interval)).exists?
-      errors.add(:base, "Vacation cannot overlap with other vacations")
+      errors.add(:base, I18n.t('activerecord.errors.models.vacation.messages.vacation_overlap'))
     end
   end
 
   def position_active
     last_position_history = employee.position_histories.last
     if last_position_history.present? && last_position_history.finished_on.present?
-      errors.add(:base, "You can't add vacation because the last position is already finished.")
+      errors.add(:base, I18n.t('activerecord.errors.models.vacation.messages.position_finished'))
     end
   end
 
@@ -47,6 +47,6 @@ class Vacation < ApplicationRecord
                                     .where(employees: { department_id: employee.department.id })
                                     .where(vacations: { finished_on: vacation_interval }))
                           .count
-    errors.add(:base, "You cannot take a vacation on this dates because 5 employees have already taken it.") if overlapping_vacations >= MAX_SIMULTANEOUS_VACATIONS
+    errors.add(:base, I18n.t('activerecord.errors.models.vacation.messages.simultaneous_vacations_limit')) if overlapping_vacations >= MAX_SIMULTANEOUS_VACATIONS
   end
 end
