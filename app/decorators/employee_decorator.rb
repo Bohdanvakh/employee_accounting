@@ -5,6 +5,7 @@ class EmployeeDecorator < Draper::Decorator
 
   def calculate_salary
     return 0 if positions.empty?
+    return 0 if !position_histories.last.finished_on.nil?
     base_salary = positions.last.salary
     years_of_service = years_of_employee
 
