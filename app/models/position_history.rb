@@ -2,7 +2,7 @@ class PositionHistory < ApplicationRecord
   belongs_to :employee
   belongs_to :position
 
-  validates :started_on, presence: { message: I18n.t('activerecord.errors.models.position_history.attributes.started_on.blank') }
+  validates :started_on, presence: { message: :blank }
   validate :last_position_finished, on: :create
   validate :manager_exists, on: :create
   validate :validate_position_history_overlap, on: :create
@@ -12,7 +12,7 @@ class PositionHistory < ApplicationRecord
     return if employee_position_histories.blank?
 
     if employee_position_histories.order(id: :desc).take(1).pluck(:finished_on).first.nil?
-      errors.add(:base, I18n.t('activerecord.errors.models.position_history.base.last_position_active'))
+      errors.add(:base, :last_position_active)
     end
   end
 
@@ -22,20 +22,17 @@ class PositionHistory < ApplicationRecord
                                   .where(started_on: vacation_interval)
                                   .or(employee.position_histories.where.not(finished_on: nil)
                                   .where(finished_on: vacation_interval)).exists?
-      errors.add(:base, I18n.t('activerecord.errors.models.position_history.base.position_overlap'))
+      errors.add(:base, :position_overlap)
     end
   end
 
   def manager_exists
-    # binding.pry
     department = employee.department
     department.employees.each do |employee|
       return if employee.position_histories.blank?
-      # if employee.position_histories.present? && employee.position_histories.last.finished_on == nil && employee.position_histories.last.position.name == Position::MANAGER
       if employee.position_histories.last.finished_on == nil && employee.position_histories.last.position.name == Position::MANAGER
-        errors.add(:base, I18n.t('activerecord.errors.models.position_history.base.position_taken'))
+        errors.add(:base, :position_taken)
       end
     end
   end
-
 end

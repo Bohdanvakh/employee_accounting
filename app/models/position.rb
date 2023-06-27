@@ -4,16 +4,16 @@ class Position < ApplicationRecord
 
   MANAGER = "manager"
 
-  validates :name, presence: { message: I18n.t('activerecord.errors.models.position.attributes.name.blank') },
+  validates :name, presence: { message: :blank },
                     length: { minimum: 4, maximum: 120,
-                      too_short: I18n.t('activerecord.errors.models.position.attributes.name.too_short', count: 4),
-                      too_long: I18n.t('activerecord.errors.models.position.attributes.name.too_long', count: 120) }
+                      too_short: :too_short, count: 4,
+                      too_long: :too_long, count: 120 }
 
-  validates :salary, presence: { message: I18n.t('activerecord.errors.models.position.attributes.salary.blank') },
+  validates :salary, presence: { message: :blank },
                     numericality: { greater_than: 0,
-                      message: I18n.t('activerecord.errors.models.position.attributes.salary.greater_than') }
+                      message: :greater_than }
 
-  validates :vacation_days, presence: { message: I18n.t('activerecord.errors.models.position.attributes.activerecord.errors.models.position.attributes.vacation_days.not_an_integer.blank') },
+  validates :vacation_days, presence: { message: :blank },
                     numericality: { only_integer: true,
-                      message: I18n.t('activerecord.errors.models.position.attributes.vacation_days.not_an_integer') }
+                      message: :not_an_integer }
 end
