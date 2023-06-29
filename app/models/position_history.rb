@@ -2,7 +2,7 @@ class PositionHistory < ApplicationRecord
   belongs_to :employee
   belongs_to :position
 
-  validates :started_on, presence: { message: :blank }
+  validates :started_on, presence: true
   validate :last_position_finished, on: :create
   validate :manager_exists, on: :create
   validate :validate_position_history_overlap, on: :create
