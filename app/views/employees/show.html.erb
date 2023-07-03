@@ -4,31 +4,31 @@
     <h1><%= @employee.middle_name %></h1>
 </div>
 <div class="user_info">
-    <h3>Position: <%= @last_position %></h3>
-    <h3>Salary: <%= @salary %></h3>
-    <p>Department ID: <%= @employee.department_id %></p>
+    <h3><%= t('views.employees.show.position') %>: <%= @last_position %></h3>
+    <h3><%= t('views.employees.show.salary') %>: <%= @salary %></h3>
+    <p><%= t('views.employees.show.department_id') %>: <%= @employee.department_id %></p>
 </div>
 <hr/>
-<p>ID: <%= @employee.id %></p>
-<p>Passport data: <%= @employee.passport_data %></p>
+<p><%= t('views.employees.show.employee_id') %>: <%= @employee.id %></p>
+<p><%= t('views.employees.show.passport_data') %>: <%= @employee.passport_data %></p>
 <hr/>
 <div class="user_info">
-    <p>Date of birth: <%= @employee.date_of_birth %></p>
-    <p>Place of birth: <%= @employee.place_of_birth %></p>
+    <p><%= t('views.employees.show.date_of_birth') %>: <%= @employee.date_of_birth %></p>
+    <p><%= t('views.employees.show.place_of_birth') %>: <%= @employee.place_of_birth %></p>
 </div>
 <hr/>
-<p>Home address: <%= @employee.home_address %></p>
-<h1>----- Employee's position history</h1>
+<p><%= t('views.employees.show.home_address') %>: <%= @employee.home_address %></p>
+<h1>----- <%= t('views.employees.show.position_history') %></h1>
 
-<h4>Add position</h4>
+<h4><%= t('views.employees.show.add_position') %></h4>
 <%= form_with(model: @position_history, data: { turbo: false }, url: employee_position_histories_path(@employee)) do |f| %>
-    <%= f.collection_select :position_id, Position.all, :id, :name, prompt: "Select Position" %>
-    <%= f.label :started_on %>
+    <%= f.collection_select :position_id, Position.all, :id, :name, prompt: t('views.employees.show.select_position') %>
+    <%= f.label t('views.employees.show.started_on') %>
     <%= f.date_field :started_on %>
-    <%= f.label :finished_on %>
+    <%= f.label t('views.employees.show.finished_on') %>
     <%= f.date_field :finished_on %>
     <%= f.hidden_field :employee_id, value: @employee.id %>
-    <%= f.submit "Add position" %>
+    <%= f.submit t('views.employees.show.submit') %>
 <% end %>
 
 <% if flash[:position_errors] %>
@@ -37,16 +37,16 @@
 <br>
 
 <% if @position %>
-    <%= link_to "Edit", edit_employee_position_history_path(@employee, @position) %>
+    <%= link_to t('views.employees.show.edit'), edit_employee_position_history_path(@employee, @position) %>
 <% end %>
 <br>
 <% @position_histories.reverse.each do |position_history| %>
     <tr>
-        <td>Position: <%= position_history.position.name %></td>
+        <td><%= t('views.employees.show.position') %>: <%= position_history.position.name %></td>
         <br>
-        <td>Started on: <%= position_history.started_on %></td>
+        <td><%= t('views.employees.show.started_on') %>: <%= position_history.started_on %></td>
         <br>
-        <td>Finished on: <%= position_history.finished_on %></td>
+        <td><%= t('views.employees.show.finished_on') %>: <%= position_history.finished_on %></td>
     </tr>
     <hr>
     <br>
@@ -55,16 +55,16 @@
 <br>
 <br>
 
-<h2>Vacations</h2>
+<h2><%= t('views.employees.show.vacations_list') %></h2>
 <br>
-<h4>Add vacation</h4>
+<h4><%= t('views.employees.show.add_vacation') %></h4>
 <%= form_with(model: @vacation, data: { turbo: false }, url: employee_vacations_path(@employee)) do |f| %>
-    <%= f.label :started_on %>
+    <%= f.label t('views.employees.show.started_on') %>
     <%= f.date_field :started_on %>
-    <%= f.label :finished_on %>
+    <%= f.label t('views.employees.show.finished_on') %>
     <%= f.date_field :finished_on %>
     <%= f.hidden_field :employee_id, value: @employee.id %>
-    <%= f.submit "Add Vacation" %>
+    <%= f.submit t('views.employees.show.add_vacation') %>
 <% end %>
 
 <% if flash[:error] %>
@@ -73,7 +73,7 @@
 
 <br>
 
-<h3>Total vacation days: <%= @total_vacation_days %></h3>
+<h3><%= t('views.employees.show.total_vacation_days') %>: <%= @total_vacation_days %></h3>
 <br>
 <% @vacations.reverse.each do |vacation| %>
     <p><%= vacation.started_on %> - <%= vacation.finished_on %></p>

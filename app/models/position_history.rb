@@ -12,7 +12,7 @@ class PositionHistory < ApplicationRecord
     return if employee_position_histories.blank?
 
     if employee_position_histories.order(id: :desc).take(1).pluck(:finished_on).first.nil?
-      errors.add(:base, "The last position is active")
+      errors.add(:base, :last_position_active)
     end
   end
 
@@ -22,20 +22,17 @@ class PositionHistory < ApplicationRecord
                                   .where(started_on: vacation_interval)
                                   .or(employee.position_histories.where.not(finished_on: nil)
                                   .where(finished_on: vacation_interval)).exists?
-      errors.add(:base, "Position cannot overlap with other positions")
+      errors.add(:base, :position_overlap)
     end
   end
 
   def manager_exists
-    # binding.pry
     department = employee.department
     department.employees.each do |employee|
       return if employee.position_histories.blank?
-      # if employee.position_histories.present? && employee.position_histories.last.finished_on == nil && employee.position_histories.last.position.name == Position::MANAGER
       if employee.position_histories.last.finished_on == nil && employee.position_histories.last.position.name == Position::MANAGER
-        errors.add(:base, "The position is already taken")
+        errors.add(:base, :position_taken)
       end
     end
   end
-
 end

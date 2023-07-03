@@ -1,40 +1,128 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   "true": "foo"
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
   hello: "Hello world"
   activerecord:
     errors:
       models:
-        employee:
+        # employee:
+        # position:
+        # department:
+        vacation:
+          messages:
+            dont_have_enough_days: "Don't have enough days"
+            past_date: "You cannot take vacation on a past date"
+            vacation_overlap: "Vacation cannot overlap with other vacations"
+            position_finished: "You can't add vacation because the last position is already finished."
+            simultaneous_vacations_limit: "You cannot take a vacation on these dates because 5 employees have already taken it."
+        position_history:
           attributes:
-            date_of_birth:
-              before: "must be before 18 years ago"
+            base:
+              last_position_active: "The last position is active"
+              position_overlap: "Position cannot overlap with other positions"
+              position_taken: "The position is already taken"
+  views:
+    employees:
+      index:
+        title: "Employees"
+        description: "Here are the numbers of all Employees"
+        add_employee: "New Employee"
+        edit: "Edit Employee"
+        delete: "Delete Employee"
+      new:
+        title: "Add New Employee"
+      edit:
+        title: "Edit Employee"
+      show:
+        position: "Position"
+        salary: "Salary"
+        department_id: "Department ID"
+        employee_id: "Employee ID"
+        passport_data: "Passport Data"
+        date_of_birth: "Date of Birth"
+        place_of_birth: "Place of Birth"
+        home_address: "Home Address"
+        position_history: "Employee's position history"
+        add_position: "Add position"
+        started_on: "Started On"
+        finished_on: "Finished On"
+        submit: "Add Position"
+        select_position: "Select Position"
+        edit: "Edit Position"
+        vacations_list: "Vacations List"
+        add_vacation: "Add Vacation"
+        add_vacation: "Add Vacation"
+        total_vacation_days: "Total Visation Days"
+      form:
+        first_name: "First Name"
+        last_name: "Last Name"
+        middle_name: "Middle Name"
+        passport_data: "Passport Data"
+        date_of_birth: "Date of Birth"
+        place_of_birth: "Place of Birth"
+        home_address: "Home Address"
+        department_id: "Department"
+        select_department: "Please select a department"
+        update_employee: "Update Employee"
+        create_employee: "Create Employee"
+    department:
+      index:
+        title: "Departments"
+        description: "Here are the numbers of all the company's departments"
+        new_department: "New Department"
+        departments_number: "Number of Department"
+        department_manager: "Department Manager"
+        no_manager: "No Manager Assigned"
+        department_employees_number: "Department's employees number"
+        edit: "Edit Department"
+        delete: "Delete Department"
+        confirmation: "Are you sure?"
+      new:
+        title: "Add Department"
+      edit:
+        title: "Edit Department"
+      show:
+        title: "Department Information"
+        department_id: "Department ID"
+        department_name: "Department Name"
+        department_abbreviation: "Department Abbreviation"
+        edit: "Edit Department"
+        add_employees: "Add Employees"
+        employee_vacations: "Show Employee Vacations"
+        department_employees: "Department's Employees"
+      employees:
+        title: "department employees vacations list"
+        total_vacations: "Total Vacation Days"
+      form:
+        name: "Department Name"
+        abbreviation: "Department Abbreviation"
+        update: "Update Department"
+        create: "Create Department"
+    position:
+      index:
+        title: "Positions"
+        description: "Here are the numbers of all the company's Positions"
+        positions_number: "Number on Positions"
+        edit: "Edit Position"
+        delete: "Delete Position"
+      new:
+        title: "New Position"
+      show:
+        title: "Show Position"
+        id: "Position ID"
+        name: "Position Name"
+        salary: "Position Salary"
+        vacation_days: "Position Vacation Days"
+        edit: "Edit"
+      edit:
+        title: "Edit Position"
+      form:
+        name: "Position Name"
+        salary: "Position Salary"
+        vacation_days: "Position Vacation Days"
+        update: "Update Position"
+        create: "Create Position"
+    position_histories:
+      edit:
+        select: "Select Position"
+        started_on: "Starten On"
+        finished_on: "Finen On"
+        submit: "Change Position"

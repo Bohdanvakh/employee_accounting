@@ -1,0 +1,186 @@
+uk:
+  hello: "Привіт світе"
+  activerecord:
+    errors:
+      models:
+        employee:
+          attributes:
+            date_of_birth:
+              before: "має бути до 18 років тому"
+            last_name:
+              blank: "не може бути порожнім"
+              too_short: "занадто коротке (мінімум %{count} символів)"
+              too_long: "занадто довге (максимум %{count} символів)"
+            first_name:
+              blank: "не може бути порожнім"
+              too_short: "занадто коротке (мінімум %{count} символів)"
+              too_long: "занадто довге (максимум %{count} символів)"
+            middle_name:
+              blank: "не може бути порожнім"
+              too_short: "занадто коротке (мінімум %{count} символів)"
+              too_long: "занадто довге (максимум %{count} символів)"
+            passport_data:
+              blank: "не може бути порожнім"
+              is: "неправильна довжина (повинно бути %{count} символів)"
+            date_of_birth:
+              blank: "не може бути порожнім"
+              before: "повинно бути перед %{restriction}"
+            place_of_birth:
+              blank: "не може бути порожнім"
+              invalid: "є недійсним"
+            home_address:
+              blank: "не може бути порожнім"
+              invalid: "є недійсним"
+        vacation:
+          attributes:
+            started_on:
+              blank: "не може бути порожнім"
+            finished_on:
+              blank: "не може бути порожнім"
+              comparison_greater_than: "повинно бути більшим аніж початкова дата"
+            employee_id:
+              blank: "не може бути порожнім"
+          messages:
+            dont_have_enough_days: "Не вистачає днів"
+            past_date: "Ви не можете взяти відпустку в минулу дату"
+            vacation_overlap: "Відпустка не може збігатися з іншими відпустками"
+            position_finished: "Ви не можете додати відпустку, оскільки остання позиція вже закінчена"
+            simultaneous_vacations_limit: "Ви не можете взяти відпустку в ці дати, тому що 5 співробітників вже взяли її"
+        position:
+          attributes:
+            name:
+              blank: "не може бути порожнім"
+              too_short: "занадто коротке (мінімум %{count} символів)"
+              too_long: "занадто довге (максимальна кількість символів: %{count})"
+            salary:
+              blank: "не може бути порожнім"
+              not_a_number: "повинно бути числом"
+              greater_than: "має бути більше 0"
+            vacation_days:
+              blank: "не може бути порожнім"
+              not_an_integer: "має бути цілим числом"
+        department:
+          attributes:
+            name:
+              blank: "не може бути порожнім"
+              taken: "вже взято"
+              too_short: "занадто коротке (мінімум %{count} символів)"
+              too_long: "занадто довге (максимальна кількість символів: %{count})"
+            abbreviation:
+              blank: "не може бути порожнім"
+              too_short: "занадто коротке (мінімум %{count} символів)"
+              too_long: "занадто довге (максимальна кількість символів: %{count})"
+        position_history:
+                  attributes:
+                    started_on:
+                      blank: "не може бути порожнім"
+                    base:
+                      last_position_active: "Остання позиція активна"
+                      position_overlap: "Посада не може збігатися з іншими позиціями"
+                      position_taken: "Позиція вже зайнята"
+  views:
+    employees:
+      index:
+        title: "Співробітники"
+        description: "Ось номери всіх співробітників"
+        add_employee: "Новий працівник"
+        edit: "Редагувати співробітника"
+        delete: "Видалити співробітника"
+      new:
+        title: "Додати нового співробітника"
+      edit:
+        title: "Редагувати співробітника"
+      show:
+        position: "Позиція"
+        salary: "Зарплата"
+        department_id: "ID відділу"
+        employee_id: "ID працівника"
+        passport_data: "Паспортні дані"
+        date_of_birth: "Дата народження"
+        place_of_birth: "Місце народження"
+        home_address: "Домашня адреса"
+        position_history: "Історія посад співробітника"
+        add_position: "Додайте посаду"
+        started_on: "Розпочато"
+        finished_on: "Закінчено"
+        submit: "Додати позицію"
+        select_position: "Вибрати позицію"
+        edit: "Редагувати позицію"
+        vacations_list: "Список відпусток"
+        add_vacation: "Додати відпустку"
+        total_vacation_days: "Загальна кількість днів відпустки"
+      form:
+        first_name: "Ім'я"
+        last_name: "Прізвище"
+        middle_name: "По батькові"
+        passport_data: "Паспортні дані"
+        date_of_birth: "Дата народження"
+        place_of_birth: "Місце народження"
+        home_address: "Домашня адреса"
+        department_id: "Відділ"
+        select_department: "Виберіть відділ"
+        update_employee: "Оновити співробітника"
+        create_employee: "Створити працівника"
+    department:
+      index:
+        title: "Відділи"
+        description: "Ось номери всіх підрозділів компанії"
+        new_department: "Новий відділ"
+        departments_number: "Номер відділу"
+        department_manager: "Керівник відділу"
+        no_manager: "Менеджер не призначений"
+        department_employees_number: "Кількість працівників відділу"
+        edit: "Редагувати відділ"
+        delete: "Видалити відділ"
+        confirmation: "Ти впевнений?"
+      new:
+        title: "Додати відділ"
+      edit:
+        title: "Редагувати відділ"
+      show:
+        title: "Інформація про відділ"
+        department_id: "ID відділу"
+        department_name: "Назва відділу"
+        department_abbreviation: "Опис відділу"
+        edit: "Редагувати відділ"
+        add_employees: "Додати співробітників"
+        employee_vacations: "Показати відпустки співробітників"
+        department_employees: "Співробітники відділу"
+      employees:
+        title: "список відпусток працівників відділу"
+        total_vacations: "Загальна кількість днів відпустки"
+      form:
+        name: "Назва відділу"
+        abbreviation: "Опис відділу"
+        update: "Оновити відділ"
+        create: "Створити відділ"
+    position:
+      index:
+        title: "Посади"
+        description: "Ось всі посади компанії"
+        positions_number: "Кількість посад"
+        edit: "Редагувати посаду"
+        delete: "Видалити посаду"
+      new:
+        title: "Нова посада"
+      show:
+        title: "Показати посаду"
+        id: "ID посади"
+        name: "Ім'я посади"
+        salary: "Ставка"
+        vacation_days: "Дні відпустки посади"
+        edit: "Редагувати"
+      edit:
+        title: "Редагувати посаду"
+      form:
+        name: "Ім'я посади"
+        salary: "Ставка"
+        vacation_days: "Дні відпустки посади"
+        update: "Оновити посаду"
+        create: "Створити посаду"
+    position_histories:
+      edit:
+        select: "Обрати посаду"
+        started_on: "Почалася"
+        finished_on: "Закінчилася"
+        submit: "Змінити позицію"

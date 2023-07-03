@@ -1,12 +1,12 @@
-<h1>Employee Index</h1>
-<h2>Here are the numbers of all Employees</h2>
+<h1><%= t('views.employees.index.title') %></h1>
+<h2><%= t('views.employees.index.description') %></h2>
 
-<%= link_to "Add Employee", new_employee_path %>
+<%= link_to t('views.employees.index.add_employee'), new_employee_path %>
 
 <h3>Numebr on Employees: <%= @employees.count %></h3>
 
 <% @employees.each do |employee| %>
     <%= link_to employee.first_name, employee %>
-    <%= link_to "Edit", edit_employee_path(employee) %>
-    <%= button_to "Delete", employee_path(employee), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+    <%= link_to t('views.employees.index.edit'), edit_employee_path(employee) %>
+    <%= button_to t('views.employees.index.delete'), employee_path(employee), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
 <% end %>

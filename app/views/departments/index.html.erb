@@ -1,22 +1,22 @@
-<h1>Departments</h1>
-<h2>Here are the numbers of all the company's departments</h2>
+<h1><%= t('views.department.index.title') %></h1>
+<h2><%= t('views.department.index.description') %></h2>
 
-<%= link_to "New Department", new_department_path %>
+<%= link_to t('views.department.index.new_department'), new_department_path %>
 
-<h2>Number of departments: <%= @departments.count %></h2>
+<h2><%= t('views.department.index.departments_number') %>: <%= @departments.count %></h2>
 
 <% @departments.each do |department| %>
     <% department_decorator = department.decorate %>
     <% if department_decorator.current_manager %>
         <% manager = department_decorator.current_manager %>
-        <p>Department Manager: <%= link_to "#{manager.first_name} #{manager.last_name}", manager %></p>
+        <p><%= t('views.department.index.department_manager') %>: <%= link_to "#{manager.first_name} #{manager.last_name}", manager %></p>
     <% else %>
-        <p>No Manager Assigned</p>
+        <p><%= t('views.department.index.no_manager') %></p>
     <% end %>
 
     <%= link_to department.name, department %>
-    <p>Department's employees number: <%= department.employees.count %></p>
-    <%= link_to "Edit", edit_department_path(department) %>
-    <%= button_to "Delete", department_path(department), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+    <p><%= t('views.department.index.department_employees_number') %>: <%= department.employees.count %></p>
+    <%= link_to t('views.department.index.edit'), edit_department_path(department) %>
+    <%= button_to t('views.department.index.delete'), department_path(department), method: :delete, data: { turbo_method: :delete, turbo_confirm: t('views.department.index.confirmation') } %>
     <hr>
 <% end %>
