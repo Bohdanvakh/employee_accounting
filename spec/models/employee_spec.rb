@@ -115,6 +115,29 @@ RSpec.describe Employee, type: :model do
     end
   end
 
+  describe "department_is_open" do
+    let(:department) { FactoryBot.create(:department) }
+
+    context "when department has less than 20 employees" do
+      it "is valid" do
+        FactoryBot.create_list(:employee, 19, department: department)
+        employee = FactoryBot.build(:employee, department: department)
+
+        expect(employee).to be_valid
+      end
+    end
+
+    context "when department has 20 employees" do
+      it "is not valid and returns error message" do
+        FactoryBot.create_list(:employee, 20, department: department)
+        employee = FactoryBot.build(:employee, department: department)
+
+        expect(employee).not_to be_valid
+        expect(employee.errors[:base]).to include("This department already has 20 employees")
+      end
+    end
+  end
+
   describe "associations" do
     it { should belong_to(:department) }
     it { should have_many(:vacations) }
