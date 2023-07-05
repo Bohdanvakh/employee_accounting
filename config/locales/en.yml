@@ -3,7 +3,10 @@ en:
   activerecord:
     errors:
       models:
-        # employee:
+        employee:
+          attributes:
+              base:
+                department_has_20_employees: "This department already has 20 employees"
         # position:
         # department:
         vacation:
