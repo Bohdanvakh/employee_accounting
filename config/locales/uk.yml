@@ -6,7 +6,7 @@ uk:
         employee:
           attributes:
             base:
-              department_has_20_employees: "Відділ уже має 20 працівників"
+              employee_limit: "Відділ уже має %{count} працівників"
 
             date_of_birth:
               before: "має бути до 18 років тому"
