@@ -14,6 +14,8 @@ class Employee < ApplicationRecord
   validates :home_address, presence: true, format: { with: /\A\d+\s[A-z0-9]+\s[A-z]+\z/ }
   validate :department_is_open, on: :create
 
+  EMPLOYEE_LIMIT = 20
+
   def vacation_days
     positions&.last&.vacation_days || 0
   end
@@ -43,8 +45,8 @@ class Employee < ApplicationRecord
   end
 
   def department_is_open
-    if department.employees.count >= 20
-      errors.add(:base, :department_has_20_employees)
+    if department.employees.count >= EMPLOYEE_LIMIT
+      errors.add(:base, :employee_limit, count: EMPLOYEE_LIMIT)
     end
   end
 end
