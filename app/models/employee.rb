@@ -12,6 +12,9 @@ class Employee < ApplicationRecord
   validates :date_of_birth, presence: true, timeliness: { before: 18.years.ago }
   validates :place_of_birth, presence: true, format: { with: /\A[a-zA-Z\s]+\z/ }
   validates :home_address, presence: true, format: { with: /\A\d+\s[A-z0-9]+\s[A-z]+\z/ }
+  validate :department_is_open, on: :create
+
+  EMPLOYEE_LIMIT = 20
 
   def vacation_days
     positions&.last&.vacation_days || 0
@@ -39,5 +42,11 @@ class Employee < ApplicationRecord
       count += (vacation.finished_on - vacation.started_on).to_i
     end
     count
+  end
+
+  def department_is_open
+    if department.employees.count >= EMPLOYEE_LIMIT
+      errors.add(:base, :employee_limit, count: EMPLOYEE_LIMIT)
+    end
   end
 end

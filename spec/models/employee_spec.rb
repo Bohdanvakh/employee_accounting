@@ -4,6 +4,8 @@ RSpec.describe Employee, type: :model do
   let(:employee) { FactoryBot.create(:employee) }
 
   describe "validations" do
+    subject { FactoryBot.create(:employee) }
+
     it { should validate_presence_of(:last_name).with_message("can't be blank") }
     it { should validate_length_of(:last_name).is_at_least(2).with_message("is too short (minimum is 2 characters)") }
     it { should validate_length_of(:last_name).is_at_most(30).with_message("is too long (maximum is 30 characters)") }
@@ -26,14 +28,14 @@ RSpec.describe Employee, type: :model do
     it { should_not allow_value("12345").for(:place_of_birth).with_message("is invalid") }
 
     it { should validate_presence_of(:home_address).with_message("can't be blank") }
-    it { should allow_value("123 Los Angeles").for(:home_address) }
+    it { should allow_value("123 Main Street").for(:home_address) }
     it { should_not allow_value("Los Angeles").for(:home_address).with_message("is invalid") }
 
 
     it 'validates date_of_birth before 18 years ago' do
       employee = FactoryBot.build(:employee, date_of_birth: Date.today - 10.years)
       expect(employee).not_to be_valid
-      expect(employee.errors[:date_of_birth]).to include("must be before 18 years ago")
+      expect(employee.errors[:date_of_birth]).to include(I18n.t('activerecord.errors.models.employee.attributes.date_of_birth.before'))
     end
   end
 
@@ -115,7 +117,32 @@ RSpec.describe Employee, type: :model do
     end
   end
 
+  describe "department_is_open" do
+    let(:department) { FactoryBot.create(:department, name: "My test department", abbreviation: "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet") }
+
+    context "when department has less than 20 employees" do
+      it "is valid" do
+        FactoryBot.create_list(:employee, Employee::EMPLOYEE_LIMIT - 1, department: department)
+        employee = FactoryBot.build(:employee, department: department)
+
+        expect(employee).to be_valid
+      end
+    end
+
+    context "when department has 20 employees" do
+      it "is not valid and returns error message" do
+        FactoryBot.create_list(:employee, Employee::EMPLOYEE_LIMIT, department: department)
+        employee = FactoryBot.build(:employee, department: department)
+
+        expect(employee).not_to be_valid
+        expect(employee.errors[:base]).to include("This department already has 20 employees")
+      end
+    end
+  end
+
   describe "associations" do
+    subject { FactoryBot.create(:employee) }
+
     it { should belong_to(:department) }
     it { should have_many(:vacations) }
     it { should have_many(:position_histories) }

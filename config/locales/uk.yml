@@ -5,6 +5,9 @@ uk:
       models:
         employee:
           attributes:
+            base:
+              employee_limit: "Відділ уже має %{count} працівників"
+
             date_of_birth:
               before: "має бути до 18 років тому"
             last_name:
